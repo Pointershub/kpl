@@ -43,7 +43,7 @@ def execute(filters=None):
 				data.append({
 					"date": pe.posting_date,
 					"transaction": pe.name,
-					"detail": "Payment Received for Plot No" + itm_desc,
+					"detail": "Payment Received for Plot No " + itm_desc,
 					"amount": "",
 					"payment": entry.allocated_amount,
 					"balance": balance
