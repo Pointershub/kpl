@@ -1,0 +1,57 @@
+<table class="table" style="width:100%">
+    <tr>
+        <td style="width:40%">
+           <h4 class="text-center">
+            {% if (filters.customer) { %}
+                {%= filters.customer %}
+            {% } %}
+        </h4>
+        </td>
+        <td style="width:60%">
+            <h2 class="text-center" style="text-align:right">{%= __("Statement of Accounts") %}</h2>
+
+            <h5 class="text-center" style="text-align:right">
+                {%= frappe.datetime.str_to_user(filters.from_date) %}
+                {%= __("to") %}
+                {%= frappe.datetime.str_to_user(filters.to_date) %}
+            </h5>
+
+            <h2 class="text-center" style="text-align:right">{%= __("Accounts Summary") %}</h2>
+            <br>
+            <p style="text-align:right"><b>Invoiced Amount:</b>
+            </p>
+            <p style="text-align:right"><b>Amount Paid:</b> </p>
+            <p style="text-align:right"><b>Balance Due:</b> </p>
+
+        </td>
+    </tr>
+</table>
+
+
+<hr>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th style="width: 12%">{%= __("Date") %}</th>
+			<th style="width: 15%">{%= __("Reference") %}</th>
+			<th style="width: 25%">{%= __("Details") %}</th>
+			<th style="width: 15%">{%= __("Debit") %}</th>
+			<th style="width: 15%">{%= __("Credit") %}</th>
+			<th style="width: 18%">{%= __("Balance (Dr - Cr)") %}</th>
+		</tr>
+	</thead>
+	<tbody>
+
+		{% for(var i=0, l=data.length; i<l; i++) { %}
+			<tr>
+                <td>{%= data[i].date %} </td>
+                <td>{%= data[i].transaction %} </td>
+                <td>{%= data[i].detail %} </td>
+                <td>{%= format_currency(data[i].amount) %} </td>
+                <td>{%= format_currency(data[i].payment) %} </td>
+                <td>{%= format_currency(data[i].balance) %} </td>
+			</tr>
+		{% } %}
+	</tbody>
+</table>
+<p class="text-right text-muted">Printed On {%= frappe.datetime.str_to_user(frappe.datetime.get_datetime_as_string()) %}</p>
