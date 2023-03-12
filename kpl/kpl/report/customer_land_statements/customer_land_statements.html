@@ -2,6 +2,7 @@
     <tr>
         <td style="width:40%">
            <h4 class="text-center">
+		To: <br>
             {% if (filters.customer) { %}
                 {%= filters.customer %}
             {% } %}
@@ -15,13 +16,6 @@
                 {%= __("to") %}
                 {%= frappe.datetime.str_to_user(filters.to_date) %}
             </h5>
-
-            <h2 class="text-center" style="text-align:right">{%= __("Accounts Summary") %}</h2>
-            <br>
-            <p style="text-align:right"><b>Invoiced Amount:</b>
-            </p>
-            <p style="text-align:right"><b>Amount Paid:</b> </p>
-            <p style="text-align:right"><b>Balance Due:</b> </p>
 
         </td>
     </tr>
