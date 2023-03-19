@@ -1,0 +1,125 @@
+{%
+	var report_columns = report.get_columns_for_print();
+%}
+<!-- Copyright (c) 2022. Christopher Njogu -->
+<!-- All rights reserved. -->
+
+<h2 class="text-left">{%= __(report.report_name) %} {{ __("Year") }} {%= filters.fiscal_year %}</h2>
+<hr>
+<table class="table table-sm  table-bordered table-fit">
+<tr>
+    <td class="text-left">{{ __("Employer's Name:") }} {%= filters.company %}</td>    
+    <td class="text-left">{{ __("Employer's PIN:") }} {%= filters.company_tax_id %}</td>
+</tr>
+<tr>
+    <td class="text-left">{{ __("Employee's Name:") }} {%= filters.employee_name %}</td>
+    <td class="text-left">{{ __("Employee's PIN:") }} {%= filters.employee_tax_id %}</td>
+</tr>
+</table>
+<hr>
+<table class="table table-sm  table-bordered table-fit">
+	<thead>
+	<tr>
+            <td>Month</td>
+            <td>Basic Salary (Kshs.)</td>
+            <td>Benefits NonCash (Kshs.)</td>
+            <td>Value of Quarters (Kshs.)</td>
+            <td>Total Gross Pay (Kshs.)</td>
+            <td colspan="3">Defined Contribution Retirement Scheme (Kshs.)</td>
+            <td>Owner Occupied Interest (Kshs.)</td>
+            <td>Retirement Contribution and Owner Occupied Interest (Kshs.)</td>
+            <td>Chargeable Pay (Kshs.)</td>
+            <td>Tax Charged (Kshs.)</td>
+            <td>Personal Relief (Kshs.)</td>
+            <td>Insurance Relief (Kshs.)</td>
+            <td>PAYE Tax (Kshs.)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>A</td>
+            <td>B</td>
+            <td>C</td>
+            <td>D</td>
+            <td>E1 30% of A</td>
+            <td>E2 Actual</td>
+            <td>E3 Defined</td>
+            <td>F Amount of Interest</td>
+            <td>G</td>
+            <td>H</td>
+            <td>J</td>
+            <td>K</td>
+            <td></td>
+            <td>L</td>
+
+        </tr>
+	</thead>
+	<tbody>
+		{% for(var j=0, k=data.length; j<k; j++) { %}
+			{%
+				var row = data[j];
+			%}
+			<tr>
+				{% for(var i=0, l=report_columns.length; i<l; i++) { %}
+					<td class="text-right">
+						{% var fieldname = report_columns[i].fieldname; %}
+						{% if (report_columns[i].fieldtype=='Currency' && !isNaN(row[fieldname])) { %}
+							{%= format_currency(row[fieldname]) %}
+						{% } else { %}
+							{% if (!is_null(row[fieldname])) { %}
+								{%= row[fieldname] %}
+							{% } %}
+						{% } %}
+					</td>
+				{% } %}
+			</tr>
+		{% } %}
+	</tbody>
+</table>
+<div class="container-fluid palechini">
+        <div class="row">
+            <div class="col-md-offset-6 col-md-6">
+                <p><b>TOTAL TAX (COL. L) KSHS </b></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6" style="width:50%">
+                <p>
+                    To be completed by Employer at the end of year
+                    <br>
+                    <b> TOTAL CHARGEABLE PAY (COL. H) KSHS. </b>
+                    <br>
+
+                </p>
+                <p>
+                    IMPORTANT
+                    <br> 1. Use P9:
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (a) For all liable employees and where director/employee received Benefits in addition to cash emoluments.
+                    <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (b) Where an employee is eligible to deduction on owner occupier interest.
+                    <br> 2.&nbsp;&nbsp;&nbsp;&nbsp; (a) Allowable interest in respect of any month must not exceed Kshs. 12,500/= or Kshs. 150,000 per year. <br>
+                    <b>(See back of this card for further information required by the Department.) </b>
+                </p>
+
+            </div>
+            <div class="col-md-6" style="width:50%">
+                <p>
+                    Attach:
+                    <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(i) Photostat copy of interest certificate and statement of account from the Financial Institution.
+                    <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ii) The DECLARATION duly signed by the employee.
+
+                </p>
+                <p>
+                    <b>
+                        NAMES OF FINANCIAL INSTITUTION ADVANCING MORTGAGE LOAN
+                        <br>
+                        L.R. NO. OF OWNER OCCUPIED PROPERTY:..........................................................................................
+                        <br>
+                        DATE OF OCCUPATION OF HOUSE:..........................................................................................................
+
+                    </b>
+                </p>
+            </div>
+        </div>
+
+
+    </div>
