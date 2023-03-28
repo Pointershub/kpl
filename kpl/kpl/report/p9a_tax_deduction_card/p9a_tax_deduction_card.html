@@ -1,3 +1,22 @@
+<style>
+  @media print {
+    body {
+      height: 100vh;
+      overflow: hidden;
+      page-break-after: avoid;
+      page-break-before: avoid;
+      page-break-inside: avoid;
+    }
+    .page {
+      display: inline-block;
+      height: 100vh;
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+  }
+</style>
+<div class="page">
 {%
 	var report_columns = report.get_columns_for_print();
 %}
@@ -42,7 +61,7 @@
             <td>D</td>
             <td>E1 30% of A</td>
             <td>E2 Actual</td>
-            <td>E3 Defined</td>
+            <td>E3 Fixed</td>
             <td>F Amount of Interest</td>
             <td>G</td>
             <td>H</td>
@@ -75,10 +94,28 @@
 		{% } %}
 	</tbody>
 </table>
+
+<!-- ...the rest of the HTML code... -->
+
+<script>
+  let totalChargeablePay = 0;
+  let totalTaxCharged = 0;
+
+  for (let row of data) {
+    totalChargeablePay += row[10];
+    totalTaxCharged += row[11];
+  }
+
+  document.getElementById("totalChargeablePay").innerText += totalChargeablePay.toFixed(2);
+  document.getElementById("totalTaxCharged").innerText += totalTaxCharged.toFixed(2);
+</script>
+
+
 <div class="container-fluid palechini">
         <div class="row">
             <div class="col-md-offset-6 col-md-6">
-                <p><b>TOTAL TAX (COL. L) KSHS </b></p>
+<!--                <p><b>TOTAL TAX (COL. L) KSHS </b></p>-->
+                <p id="totalTaxCharged"><b>TOTAL TAX (COL. L) KSHS </b></p>
             </div>
         </div>
 
@@ -87,7 +124,9 @@
                 <p>
                     To be completed by Employer at the end of year
                     <br>
-                    <b> TOTAL CHARGEABLE PAY (COL. H) KSHS. </b>
+<!--                    <b> TOTAL CHARGEABLE PAY (COL. H) KSHS. </b>-->
+                    <b id="totalChargeablePay"> TOTAL CHARGEABLE PAY (COL. H) KSHS. </b>
+
                     <br>
 
                 </p>
@@ -123,3 +162,4 @@
 
 
     </div>
+</div>
