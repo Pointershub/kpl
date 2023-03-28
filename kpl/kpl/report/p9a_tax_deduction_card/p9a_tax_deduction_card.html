@@ -42,7 +42,7 @@
             <td>D</td>
             <td>E1 30% of A</td>
             <td>E2 Actual</td>
-            <td>E3 Defined</td>
+            <td>E3 Fixed</td>
             <td>F Amount of Interest</td>
             <td>G</td>
             <td>H</td>
@@ -75,10 +75,28 @@
 		{% } %}
 	</tbody>
 </table>
+
+<!-- ...the rest of the HTML code... -->
+
+<script>
+  let totalChargeablePay = 0;
+  let totalTaxCharged = 0;
+
+  for (let row of data) {
+    totalChargeablePay += row[10];
+    totalTaxCharged += row[11];
+  }
+
+  document.getElementById("totalChargeablePay").innerText += totalChargeablePay.toFixed(2);
+  document.getElementById("totalTaxCharged").innerText += totalTaxCharged.toFixed(2);
+</script>
+
+
 <div class="container-fluid palechini">
         <div class="row">
             <div class="col-md-offset-6 col-md-6">
-                <p><b>TOTAL TAX (COL. L) KSHS </b></p>
+<!--                <p><b>TOTAL TAX (COL. L) KSHS </b></p>-->
+                <p id="totalTaxCharged"><b>TOTAL TAX (COL. L) KSHS </b></p>
             </div>
         </div>
 
@@ -87,7 +105,9 @@
                 <p>
                     To be completed by Employer at the end of year
                     <br>
-                    <b> TOTAL CHARGEABLE PAY (COL. H) KSHS. </b>
+<!--                    <b> TOTAL CHARGEABLE PAY (COL. H) KSHS. </b>-->
+                    <b id="totalChargeablePay"> TOTAL CHARGEABLE PAY (COL. H) KSHS. </b>
+
                     <br>
 
                 </p>
