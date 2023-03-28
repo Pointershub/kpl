@@ -122,6 +122,9 @@ def execute(filters=None):
                                                           p9a_tax_deduction_card_type[13],
                                                           currency, company_currency)
 
+            chargeable_pay_amt = total_gross_pay_amt - retirement_contribution_and_owner_occupied_interest_amt
+            tax_charged_amt = paye_tax_amt + insurance_relief_amt + personal_relief_amt
+
             row = [month_name,
                    basic_salary_amt,
                    benefits_non_cash_amt,
